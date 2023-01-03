@@ -1,11 +1,28 @@
 // Defining text characters for the empty and full hearts for you to use later.
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
+const glyphObject = {'♡':FULL_HEART,'♥':EMPTY_HEART}
+const colorState = {"red":"","":"red"}
 
 // Your JavaScript code goes here!
-
-
-
+// document.getElementsByClassName("like-glyph").addEventListener("click", changeHeart)
+// function changeHeart()
+let likeButtons = document.getElementsByClassName("like-glyph")
+for (el of likeButtons){
+el.addEventListener("click", (e) => {
+mimicServerCall()
+.then((respond) => {
+e.target.innerText = glyphObject[e.target.innerText]
+e.target.style.color = colorState[e.target.style.color]
+})
+.catch((error) => {
+document.getElementById("modal").className = ""
+setTimeout(function() {
+document.getElementById("modal").className = "hidden"
+}, 3000);
+})
+})
+}
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
